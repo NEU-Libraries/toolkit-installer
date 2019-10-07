@@ -1,0 +1,14 @@
+# default wp config options
+
+skip-plugins:
+
+skip-themes:
+  twentyfifteen
+  twentysixteen
+  twentyseventeen
+  twentyeighteen
+  twentynineteen
+
+
+
+ 
