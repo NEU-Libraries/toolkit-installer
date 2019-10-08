@@ -5,7 +5,8 @@
 #    siteurl the url for the site
 #    db the database name the site will use. wp-cli will use the data from config to set it up via the commands below
 #    dbuser the database user
-# e.g.: ./tkinstall.sh --targetdir /var/www/html/tkinstall/test --db wptest --dbuser patrickmj
+# e.g.: ./tkinstall.sh --targetdir /var/www/html/tkinstall/test --db wptest --dbuser patrickmj --sitetitle "Site Title" --siteurl http://newdnsfromkarl.libary.northeastern.edu
+
 
 TKINSTALLDIR=$(cd `dirname $0` && pwd)
 
