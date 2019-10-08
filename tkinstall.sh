@@ -1,63 +1,74 @@
 #!/bin/bash
+# params:
+#    targetdir the directory to put WP into
+#    sitetitle the title for the site
+#    siteurl the url for the site
+#    db the database name the site will use. wp-cli will use the data from config to set it up via the commands below
+#    dbuser the database user
+# e.g.: ./tkinstall.sh --targetdir /var/www/html/tkinstall/test --db wptest --dbuser patrickmj
+
+TKINSTALLDIR=$(cd `dirname $0` && pwd)
+
+# adapted from https://www.golinuxcloud.com/how-to-pass-multiple-parameters-in-shell-script-in-linux/  
+while [ ! -z "$1" ]; do
+  case "$1" in
+     --targetdir)
+         shift
+         targetdir=$1
+         ;;
+     --sitetitle)
+         shift
+         sitetitle=$1
+         ;;
+     --siteurl)
+        shift
+        siteurl=$1
+         ;;
+     --db)
+         shift
+         db=$1
+         ;;
+     --dbuser)
+        shift
+        dbuser=$1
+         ;;
+     *)
+        echo 'no' #eventually this will show help info
+        ;;
+  esac
+shift
+done
+
+wp core download --path=$targetdir --version=4.9.8 --skip-content
+
+# see https://developer.wordpress.org/cli/commands/config/create/
+wp config create --path=$targetdir --dbname=$db --dbuser=$dbuser --prompt=dbpass # the database password will be prompted for
+
+wp db create --path=$targetdir #TODO: might be redundant, install might do it
+
+wp core install --url=$siteurl --title=$sitetitle --admin_user=patrickmj --admin_email=p.murray-john@northeastern.edu --path=$targetdir
 ​
-#  Drop this script into the directory to be modified. Edit and run script.
-#  Delete the working copy of the script when done.
+# see note on https://developer.wordpress.org/cli/commands/core/install/ for the need to update
+wp option update siteurl $siteurl --path=$targetdir
+
+wp user create kyee kyee@northeastern.edu --role=administrator --send-email --path=$targetdir
+wp user create arust a.rust@northeastern.edu --role=administrator --send-email --path=$targetdir
+
+wp plugin install relevanssi --activate --path=$targetdir
+wp plugin install siteorigin-panels --activate --path=$targetdir
+wp plugin install black-studio-tinymce-widget --activate --path=$targetdir
+wp plugin install widget-context --activate --path=$targetdir
+wp plugin install better-wp-security --activate --path=$targetdir
 ​
-​
-#  Define the variable here before running script.
-here="/mnt/wordpressdata/folder_I_want_to_change"
-​
-#  saves the absolute path of the current working directory to the variable cwd.
-cwd=$(pwd)
-​
-​
-​
-cd $here/
-echo "We are currently in this directory: $cwd"
-if [ $cwd = $here ]
-then
-​
-   cd $here/wp-content/themes
-   wp theme install quest
-​
-   cd $here/wp-content/plugins
-   git clone https://github.com/NEU-Libraries/drs-toolkit-wp-plugin.git drs-tk
-​
-   cd $here/wp-content/themes
-   git clone https://github.com/NEU-Libraries/drs-toolkit-wp-theme.git quest-child
-​
-   cd $here/wp-content/themes/quest-child
-   mkdir overrides
-   touch overrides/style.css
-   echo "<?php //silence is golden" > overrides/functions.php
-​
-   cd $here/wp-content/themes
-   rm -rf twentyfifteen 
-   rm -rf twentysixteen
-   rm -rf twentyseventeen 
-​
-   cd $here/
-   wp plugin install relevanssi --activate
-   wp plugin install siteorigin-panels --activate
-   wp plugin install black-studio-tinymce-widget --activate
-   wp plugin install widget-context --activate
-   wp plugin install better-wp-security --activate
-​
-   cd $here
-   wp theme activate quest-child
-   
-   cd $here
-   wp plugin activate drs-tk
-​
-​
-#  Toggling the quest-child theme activation. Needed for it to work properly.
-  
-   cd $here
-   wp theme activate quest
-   wp theme activate quest-child
-​
-else
-    echo "This is *NOT* the intended site you wanted."
-fi
+wp theme install quest --path=$targetdir
+
+cd $targetdir/wp-content/plugins
+git clone https://github.com/NEU-Libraries/drs-toolkit-wp-plugin.git drs-tk
+cp $TKINSTALLDIR/tkconfig.php config.php
+wp plugin activate drs-tk
+
+cd $targetdir/wp-content/themes
+git clone https://github.com/NEU-Libraries/drs-toolkit-wp-theme.git quest-child
+wp theme activate quest-child --path=$targetdir
 
 
