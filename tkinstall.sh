@@ -65,7 +65,11 @@ wp theme install quest --path=$targetdir
 
 cd $targetdir/wp-content/plugins
 git clone https://github.com/NEU-Libraries/drs-toolkit-wp-plugin.git drs-tk
-cp $TKINSTALLDIR/tkconfig.php config.php
+
+# tkpluginconfig.php includes API credentials, so is not in the repo.
+# it should just be copied over into wherever this installer lives from a working copy
+
+cp $TKINSTALLDIR/tkpluginconfig.php drs-tk/config.php
 wp plugin activate drs-tk
 
 cd $targetdir/wp-content/themes
