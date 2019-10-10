@@ -13,6 +13,7 @@
 
 pluginversion=v1.2
 themeversion=v1.2.2
+wpversion=4.9.8
 
 TKINSTALLDIR=$(cd `dirname $0` && pwd)
 
@@ -50,7 +51,7 @@ while [ ! -z "$1" ]; do
 shift
 done
 
-wp core download --path=$targetdir --version=4.9.8 --skip-content
+wp core download --path=$targetdir --version=$wpversion --skip-content
 
 # see https://developer.wordpress.org/cli/commands/config/create/
 wp config create --path=$targetdir --dbname=$db --dbuser=$dbuser --prompt=dbpass # the database password will be prompted for
