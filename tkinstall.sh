@@ -9,7 +9,7 @@
 
 # e.g.: ./tkinstall.sh --targetdir /var/www/html/tkinstall/test --db wptest --dbuser patrickmj --siteurl http://newdnsfromkarl.libary.northeastern.edu --ownerusername notme --owneremail notme@example.com
 
-# latest user 1 pwd: %ULoAQXW$)R#)zj5nf
+# latest user 1 pwd: %ULoAQXW$)R#)zj5nf don't worry, this is just on localhost. stuffing it here from the script's output for convenience
 
 pluginversion=v1.2
 themeversion=v1.2.2
