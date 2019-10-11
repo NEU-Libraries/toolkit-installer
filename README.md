@@ -23,3 +23,8 @@ for example:
 The db user must exist, and you will be prompted for the password. After that, everything is automated.
 
 The siteurl might have to be changed later if the domain has not already been set up.
+
+The user 1 Admin's password will appear in the output from the script, so scroll up in the output to find it if needed.
+
+
+
