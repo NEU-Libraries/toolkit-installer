@@ -8,6 +8,7 @@
 #    owneremail the email for the owner so they get an email that it's ready
 
 # e.g.: ./tkinstall.sh --targetdir /var/www/html/tkinstall/test --db wptest --dbuser patrickmj --siteurl http://newdnsfromkarl.libary.northeastern.edu --ownerusername notme --owneremail notme@example.com
+# if dns is not set up, leave siteurl empty. otherwise WP's routing looks in the wrong place
 
 # latest user 1 pwd: %ULoAQXW$)R#)zj5nf don't worry, this is just on localhost. stuffing it here from the script's output for convenience
 
@@ -62,7 +63,8 @@ wp core install --url=$siteurl --admin_user=patrickmj --admin_email=p.murray-joh
 
 
 # see note on https://developer.wordpress.org/cli/commands/core/install/ for the need to update
-wp option update siteurl $siteurl --path=$targetdir
+# if dns is not set up, leave siteurl empty. otherwise WP's routing looks in the wrong place
+# wp option update siteurl $siteurl --path=$targetdir
 
 wp user create kyee kyee@northeastern.edu --role=administrator --send-email --path=$targetdir
 wp user create arust a.rust@northeastern.edu --role=administrator --send-email --path=$targetdir
@@ -87,7 +89,7 @@ git checkout $pluginversion
 # it should just be copied over into wherever this installer lives from a working copy
 # and rename it tkpluginconfig.php
 
-cp $TKINSTALLDIR/tkpluginconfig.php drs-tk/config.php
+cp $TKINSTALLDIR/tkpluginconfig.php config.php
 wp plugin activate drs-tk
 
 cd $targetdir/wp-content/themes
