@@ -26,5 +26,14 @@ The siteurl might have to be changed later if the domain has not already been se
 
 The user 1 Admin's password will appear in the output from the script, so scroll up in the output to find it if needed.
 
+## Hardcoded values
 
+Because they don't change often, the versions for WordPress itself, the CERES plugin, and the CERES theme are hardcoded at the top of the script:
+
+```
+pluginversion=v1.2
+themeversion=v1.2.2
+wpversion=4.9.8
+
+```
 
