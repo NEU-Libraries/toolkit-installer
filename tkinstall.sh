@@ -65,7 +65,7 @@ wp core install --url=$siteurl --admin_user=patrickmj --admin_email=p.murray-joh
 # if dns is not set up, leave siteurl empty. otherwise WP's routing looks in the wrong place
 wp option update siteurl $siteurl --path=$targetdir
 
-wp user create kyee kyee@northeastern.edu --role=administrator --send-email --path=$targetdir
+wp user create kyee k.yee@northeastern.edu --role=administrator --send-email --path=$targetdir
 wp user create arust a.rust@northeastern.edu --role=administrator --send-email --path=$targetdir
 wp user create $ownerusername $owneremail --role=administrator --send-email --path=$targetdir
 
